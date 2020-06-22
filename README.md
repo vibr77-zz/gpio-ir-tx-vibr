@@ -108,6 +108,12 @@ No issue with 1 transmitter at a time
 
 Enjoy the new module
 
+### Step 8 - Optionnal Make the new module permanent after Reboot
+
+```
+uname -r
+sudo cp gpio-ir-tx/gpio-ir-tx.ko /lib/modules/[KERNEL Version]/kernel/drivers/media/rc/
+```
 
 
 
