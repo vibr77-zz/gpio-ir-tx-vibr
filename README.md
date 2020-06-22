@@ -113,6 +113,7 @@ Enjoy the new module
 ```
 uname -r
 sudo cp gpio-ir-tx/gpio-ir-tx.ko /lib/modules/[KERNEL Version]/kernel/drivers/media/rc/
+sudo update-initramfs -u
 ```
 
 
