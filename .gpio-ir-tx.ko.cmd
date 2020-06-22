@@ -1,0 +1,1 @@
+cmd_/home/pi/gpio-ir/gpio-ir-tx/gpio-ir-tx.ko := ld -r  -EL  --build-id  -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds -o /home/pi/gpio-ir/gpio-ir-tx/gpio-ir-tx.ko /home/pi/gpio-ir/gpio-ir-tx/gpio-ir-tx.o /home/pi/gpio-ir/gpio-ir-tx/gpio-ir-tx.mod.o;  true
