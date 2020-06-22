@@ -83,7 +83,7 @@ static int gpio_ir_tx(struct rc_dev *dev, unsigned int *txbuf,unsigned int count
 	space = DIV_ROUND_CLOSEST((100 - gpio_ir->duty_cycle) *(NSEC_PER_SEC / 100), gpio_ir->carrier);
 
 	edge = ktime_get();
-	
+	spin_lock_irqsave(&active_lock, flags);
 	for (j = 0; j < gpio_ir->num_transmitters; j++){
 		if (gpio_ir_transmitter_enabled(j,gpio_ir->tx_mask)){
 			dev_info(gpio_ir->dev,"VIBR sending tx on Transmitter:%d frame:%d\n",j+1,count);
@@ -91,7 +91,7 @@ static int gpio_ir_tx(struct rc_dev *dev, unsigned int *txbuf,unsigned int count
 			active_gpio=gpio_ir->gpio_vibr[j];
 			active_lock=gpio_ir->lock;
 			
-			spin_lock_irqsave(&active_lock, flags);
+			
 
 			for (i = 0; i < count; i++) {
 				if (i % 2) {
@@ -125,9 +125,10 @@ static int gpio_ir_tx(struct rc_dev *dev, unsigned int *txbuf,unsigned int count
 					edge = last;
 				}
 			}
-			spin_unlock_irqrestore(&active_lock, flags);
+			
 		}	
 	}
+	spin_unlock_irqrestore(&active_lock, flags);
 	dev_info(gpio_ir->dev,"VIBR end tx frame:%d",count);
 	return count;
 }
